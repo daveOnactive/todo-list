@@ -1,0 +1,290 @@
+$colors: (
+  main-color: #ddd,
+  primary-color: rgb(12, 231, 147),
+  sub-color: rgb(42, 141, 86)
+);
+
+@function color ($color-name) {
+  @return map-get($map: $colors, $key: $color-name );
+}
+
+$desktop: 740px;
+
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.6;
+  word-spacing: 2.5px;
+  letter-spacing: 1.5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: color(main-color);
+}
+
+#container {
+  position: absolute;
+  width: 350px;
+  background: #fff;
+  margin: 2rem auto;
+  padding: 1rem;
+  left: 50%;
+  transform: translate(-50%,0)
+  
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  
+  #date {
+    display: flex;
+    margin: 1rem 2rem;
+    #day {
+      font-weight: bolder;
+      font-size: 1.7rem;
+      margin: 0 0.3rem 0 0;
+    }
+    #year-sect {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.6rem;
+      font-weight: 500;
+      margin-top: 0.3rem;
+    }
+  }
+
+  #days {
+    margin: 1.8rem 1rem;
+    font-variant: small-caps;
+    font-size: 0.7rem;
+  }
+}
+
+#lists {
+  margin: 1rem;
+
+  #todo {
+    margin: 1rem 0;
+    cursor: pointer;
+    &:hover  #edit  {
+      visibility: visible;
+    }
+
+    &:hover  #delete  {
+      visibility: visible;
+    }
+
+    #input {
+      background: none;
+      border: none;
+      outline: none;
+      width: 60%;
+    }
+
+    #edit {
+      margin: 0 0.5rem;
+      cursor: pointer;
+      visibility: hidden;
+      color: rgb(88, 88, 248);
+    }
+
+    #delete {
+      margin: 0 0.5rem;
+      cursor: pointer;
+      visibility: hidden;
+      color: red;
+    }
+
+    #checkbox {
+      appearance: none;
+      outline: none;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: 3px solid #ddd;
+      cursor: pointer;
+      &:checked {
+        background: color(primary-color);
+      }
+    }
+  }
+}
+
+#button {
+  position: relative;
+  bottom: -50px;
+  left: 50%;
+  transform: translate(-50%,0);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: color(primary-color);
+  cursor: pointer;
+  &:hover {
+    background: color(sub-color);
+  }
+
+  &:hover #line1 {
+    background: color(primary-color);
+  }
+
+  &:hover #line2 {
+    background: color(primary-color);
+  }
+  
+  #line1 {
+    width: 2px;
+    height: 20px;
+    background: color(sub-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  #line2 {
+    width: 20px;
+    height: 2px;
+    background: color(sub-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    overflow: hidden;
+    border-radius: 10px;
+  }
+}
+
+#modal {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  transform: scale(0);
+  transition: .7s;
+  
+  form {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: #fff;
+    width: 350px;
+
+    #back-btn {
+      transform: translate(-50%,0);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: color(primary-color);
+      transform: rotate(45deg);
+      position: relative;
+      top: -6px;
+      right: -96%;
+      cursor: pointer;
+      &:hover {
+        background: color(sub-color);
+      }
+      &:hover #bar1 {
+        background: color(primary-color);
+      }
+
+      &:hover #bar2 {
+        background: color(primary-color);
+      }
+      
+      #bar1 {
+        width: 2px;
+        height: 15px;
+        background: color(sub-color);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        overflow: hidden;
+        border-radius: 10px;
+      }
+    
+      #bar2 {
+        width: 15px;
+        height: 2px;
+        background: color(sub-color);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        overflow: hidden;
+        border-radius: 10px;
+      }
+    }
+
+    #textinput {
+      width: 90%;
+      padding: 0.2rem 0.5rem;
+      margin: 0.5rem;
+      outline: none;
+      background: none;
+      border: none;
+      border-bottom: 2px solid color(primary-color);
+      &:focus{
+        border-bottom: 2px solid color(sub-color);
+      }
+    }
+
+    #btn {
+      margin: 0.5rem;
+      padding: 0.2rem 0.7rem;
+      outline: none;
+      border: none;
+      border-radius: 10px;
+      background: color(primary-color);
+      color: color(sub-color);
+      cursor: pointer;
+      &:hover {
+        color: color(primary-color);
+        background: color(sub-color);
+      }
+    }
+  }
+
+}
+
+#newinput {
+  border: none;
+  background: none;
+  outline: none;
+  padding: 0.2rem 0.2rem;
+  border-bottom: 2px solid color(primary-color);
+}
+
+#flag {
+  width: 90px;
+  background: rgba(37, 37, 37, 0.7);
+  color: #ddd;
+  text-align: center;
+  font-size: 0.8rem;
+  position: absolute;
+  border-radius: 5px;
+  padding: 0.2rem 0.5rem;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%,70%);
+  animation: updown ease .8s;
+  display: none;
+  @keyframes updown {
+    from{top: -50%;}
+    to{top: 70%;}
+  }
+}
